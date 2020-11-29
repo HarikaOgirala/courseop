@@ -37,7 +37,7 @@
 			<a href="/courseop/programInformationCS" data-toggle="tab">Program Information CS</a> 
 		</ul>
 		<ul>
-			<a href="/courseop/programInformationCIT" data-toggle="tab">Program Information CIT</a>
+			<a href="/courseop/programInformationSE" data-toggle="tab">Program Information SE</a>
 		</ul> 
 	</div>   
     <div class="container-fluid" style="border:2px solid #cecece;">

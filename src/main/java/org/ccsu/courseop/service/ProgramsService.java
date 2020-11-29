@@ -56,6 +56,7 @@ public class ProgramsService {
 		query = QueryFactory.create(selectQuery1, Syntax.syntaxARQ);
 		qexec = QueryExecutionFactory.create(query, schema);
 		Programs program = new Programs();
+		String regex = "(?<=[A-Za-z])(?=[0-9])";
 		if (name.equals("CIT_CS")) {
 			program.setProgramName("CIT_CS");
 		}
@@ -83,6 +84,7 @@ public class ProgramsService {
 				String prerequisite = jsonObj.get("prerequisite").toString().replace("\"", "");
 				prerequisite = prerequisite.substring(prerequisite.indexOf("#") + 1, prerequisite.length());
 				if(!requiredCourses.contains(prerequisite)) {
+					prerequisite = prerequisite.replaceAll(regex, " ");
 					requiredCourses.add(prerequisite);
 				}
 			}

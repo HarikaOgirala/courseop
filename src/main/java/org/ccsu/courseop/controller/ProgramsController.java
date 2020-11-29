@@ -48,7 +48,7 @@ public class ProgramsController {
 		return "programInformation";
 	}
 	
-	@RequestMapping("/programInformationCIT")
+	@RequestMapping("/programInformationSE")
 	public String getProgramInformationCIT(Map<String, Object> model) throws IOException {
 		Programs response = programService.getProgramInformation("CIT_SE");
 		model.put("programs", response);

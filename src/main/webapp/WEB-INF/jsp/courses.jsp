@@ -54,15 +54,15 @@
   <tbody>
   <c:forEach items="${courses}" var="course">
     <tr>
-      <td><a href="/courseop/courseDetails">${course.courseNumber}</a></td>
+      <td><a href="/courseop/courseDetails?courseNumber=${course.courseNumber}">${course.courseNumber}</a></td>
       <td>${course.courseName}</td>
       <td>
 	      <c:forEach items="${course.prerequisite}" var="prerequisite">
-	      <c:if test="${course.prerequisite == 'null'}">
+	      <c:if test="${prerequisite == 'null' || prerequisite == 'None'}">
    			<li>None</li>
 	  	</c:if>
-	  	<c:if test="${course.prerequisite != 'null'}">
-    		<li><a href="/courseop/courseDetails">${prerequisite}</a></li>
+	  	<c:if test="${prerequisite != 'null' && prerequisite != 'None'}">
+    		<li><a href="/courseop/courseDetails?courseNumber=${prerequisite}">${prerequisite}</a></li>
 	  	</c:if>
 	      	
 	      </c:forEach>
