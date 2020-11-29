@@ -57,7 +57,11 @@
       <td>${faculty.firstName}</td>
       <td>${faculty.lastName}</td>
       <td>${faculty.email}</td>
-      <td>${faculty.website}</td>
+      <td>
+	      <c:if test="${faculty.website != 'null'}">
+	      		<a href="${faculty.website}" target="_blank">${faculty.website}</a>
+	      </c:if>
+      </td>
     </tr>
    </c:forEach>
   </tbody>

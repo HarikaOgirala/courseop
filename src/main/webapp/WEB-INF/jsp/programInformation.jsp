@@ -51,7 +51,7 @@
 				<h4>List of mandatory Courses</h4>
 				<td><c:forEach items="${programs.requiredCourses}"
 						var="prerequisite">
-						<li><a href="/courseop/courseDetails">${prerequisite}</a></li>
+						<li><a href="/courseop/courseDetails?courseNumber=${prerequisite}">${prerequisite}</a></li>
 					</c:forEach></td>
 			</tr>
 		</div>

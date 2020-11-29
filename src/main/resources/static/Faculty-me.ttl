@@ -232,6 +232,15 @@ AdvisoryBot:Yusuf_Albayram rdf:type owl:NamedIndividual ,
                            AdvisoryBot:lastName "Albayram" .
 
 
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Zdravko_Markov
+AdvisoryBot:Zdravko_Markov rdf:type owl:NamedIndividual ,
+                                    AdvisoryBot:Permanent ;
+                           AdvisoryBot:email "MarkovZ@ccsu.edu" ;
+                           AdvisoryBot:firstName "Zdravko" ;
+                           AdvisoryBot:lastName "Markov" ;
+                           AdvisoryBot:website "https://cs.ccsu.edu/~markov/" .
+
+
 #################################################################
 #    General axioms
 #################################################################
