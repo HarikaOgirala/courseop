@@ -45,16 +45,16 @@
        		 <span class="float-right">Under Graduate Programs</span>
 		</h4>    
 		<ul>
-			<a href="/courseop/programInformationCIT" data-toggle="tab">Computer Science Alternative</a>
+			<a href="/courseop/programInformationCSAlternative" data-toggle="tab">Computer Science Alternative</a>
 		</ul> 
 		<ul>
-			<a href="/courseop/programInformationCIT" data-toggle="tab">Computer Science Honors BS</a>
+			<a href="/courseop/programInformationCSHonors" data-toggle="tab">Computer Science Honors BS</a>
 		</ul> 
 		<ul>
-			<a href="/courseop/programInformationCIT" data-toggle="tab">Computer Science Minor</a>
+			<a href="/courseop/programInformationMinor" data-toggle="tab">Computer Science Minor</a>
 		</ul> 
 		<ul>
-			<a href="/courseop/programInformationCIT" data-toggle="tab">Cyber Security Concentration</a>
+			<a href="/courseop/programInformationCyberSecurity" data-toggle="tab">Cyber Security Concentration</a>
 		</ul>                                            
 	</div>
 	<div class="container-fluid" style="border:2px solid #cecece;">

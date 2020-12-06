@@ -42,76 +42,39 @@
 </table>
   </div>
   </div>
-<label class="radio-inline"><input type="radio" name="optradio" checked>Spring</label>
-<label class="radio-inline"><input type="radio" name="optradio">Summer</label>
-<label class="radio-inline"><input type="radio" name="optradio">Fall</label>
+<label class="radio-inline"><input type="radio" onclick="window.location.href='/courseop/courseTimings?semester=Spring';" name="optradio" <c:if test="${semester == 'Spring'}">checked="checked"</c:if>>Spring</label>
+<label class="radio-inline"><input type="radio" onclick="window.location.href='/courseop/courseTimings?semester=Summer';" name="optradio" <c:if test="${semester == 'Summer'}">checked="checked"</c:if>>Summer</label>
+<label class="radio-inline"><input type="radio" onclick="window.location.href='/courseop/courseTimings?semester=Fall';" name="optradio" <c:if test="${semester == 'Fall'}">checked="checked"</c:if>>Fall</label>
 <br>
 <br>
 <table class="table table-bordered">
   <thead class="thead-light">
     <tr>
-      <th scope="col">Part of the Day</th>
+     <th scope="col">CourseNumber</th>
+     <th scope="col">Type</th>
+       <th scope="col">Part of day</th>
       <th scope="col">Timings</th>
       <th scope="col">Day</th>
-      <th scope="col">CourseNumber</th>
+      <th scope="col">Faculty</th>
     </tr>
   </thead>
   <tbody>
-<%--   <c:forEach items="${courses}" var="course">
+   <c:forEach items="${courses}" var="course">
     <tr>
-      <td>${course.courseNumber}</td>
-      <td>${course.courseName}</td>
+    <td><a href="/courseop/courseDetails?courseNumber=${course.courseNumber}">${course.courseNumber} - ${course.courseName}</a></td>
+    <td>${course.type}</td>
+     <td><c:forEach items="${course.partOfDay}" var="pDay">
+      	<li>${pDay}</li>
+      </c:forEach></td>
+      <td><c:forEach items="${course.timings}" var="timing">
+      	<li>${timing}</li>
+      </c:forEach></td>
+     <td><c:forEach items="${course.days}" var="day">
+      	<li>${day}</li>
+      </c:forEach></td>
+      <td>${course.taughtBy.name}</td>
     </tr>
-   </c:forEach> --%>
-    <tr>
-      <td>Morning</td>
-      <td><ul>
- 			<li>8:00-9:15 am</li>
-  		 	<li>9:25-10:40 am</li>
-  		 	<li>10:50-12:05 am</li>
-		</ul>
-	 </td>
-      <td>Mon,Tue,Wed</td>
-      <td>
-      	<ul>
- 			<li><a href="#">501</a></li>
-  		 	<li><a href="#">502</a></li>
-		</ul>
-	  </td>
-    </tr>
-    <tr>
-      <td>Noon</td>
-      <td><ul>
- 			<li>12:15-01:30 pm</li>
-  		 	<li>1:40-02:55 pm</li>
-  		 	<li>3:05-04:20 pm</li>
-		</ul>
-	 </td>
-      <td>Mon,Tue,Wed</td>
-      <td>
-      	<ul>
- 			<li><a href="#">501</a></li>
-  		 	<li><a href="#">502</a></li>
-		</ul>
-	  </td>
-    </tr>
-    <tr>
-      <td>Evening</td>
-      <td><ul>
- 			<li>4:30-05:45 pm</li>
-  		 	<li>5:55-07:10 pm</li>
-  		 	<li>7:20-08:35 pm</li>
-  		 	<li>8:45-10:00 pm</li>
-		</ul>
-	 </td>
-      <td>Wed,Thu</td>
-      <td>
-      	<ul>
- 			<li><a href="#">501</a></li>
-  		 	<li><a href="#">502</a></li>
-		</ul>
-	  </td>
-    </tr>
+   </c:forEach>
   </tbody>
 </table>
 </div>

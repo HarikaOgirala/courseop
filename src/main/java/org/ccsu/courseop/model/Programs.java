@@ -1,13 +1,14 @@
 package org.ccsu.courseop.model;
 
-import java.util.List;
+import java.util.HashSet;
 
 public class Programs {
 	
 	private String programName;
-	private List<String> requiredCourses;
+	private HashSet<String> requiredCourses;
 	private int totalCredits;
 	private String admissionRequirements;
+	private HashSet<String> electives;
 	
 	public String getProgramName() {
 		return programName;
@@ -16,10 +17,10 @@ public class Programs {
 		this.programName = programName;
 	}
 	
-	public List<String> getRequiredCourses() {
+	public HashSet<String> getRequiredCourses() {
 		return requiredCourses;
 	}
-	public void setRequiredCourses(List<String> requiredCourses) {
+	public void setRequiredCourses(HashSet<String> requiredCourses) {
 		this.requiredCourses = requiredCourses;
 	}
 	public int getTotalCredits() {
@@ -34,5 +35,10 @@ public class Programs {
 	public void setAdmissionRequirements(String admissionRequirements) {
 		this.admissionRequirements = admissionRequirements;
 	}
-	
+	public HashSet<String> getElectives() {
+		return electives;
+	}
+	public void setElectives(HashSet<String> electives) {
+		this.electives = electives;
+	}
 }

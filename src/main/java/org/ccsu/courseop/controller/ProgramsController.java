@@ -54,5 +54,33 @@ public class ProgramsController {
 		model.put("programs", response);
 		return "programInformation";
 	}
+	
+	@RequestMapping("/programInformationCSAlternative")
+	public String getProgramInformationCSAlternative(Map<String, Object> model) throws IOException {
+		Programs response = programService.getProgramInformationUG("ComputerScienceAlternative");
+		model.put("programs", response);
+		return "programInformation";
+	}
+	
+	@RequestMapping("/programInformationCSHonors")
+	public String getProgramInformationCSHonors(Map<String, Object> model) throws IOException {
+		Programs response = programService.getProgramInformationUG("ComputerScienceHonors_BS");
+		model.put("programs", response);
+		return "programInformation";
+	}
+	
+	@RequestMapping("/programInformationMinor")
+	public String getProgramInformationCSMinor(Map<String, Object> model) throws IOException {
+		Programs response = programService.getProgramInformationUG("ComputerScienceMinor");
+		model.put("programs", response);
+		return "programInformation";
+	}
+	
+	@RequestMapping("/programInformationCyberSecurity")
+	public String getProgramInformationCyberSecurity(Map<String, Object> model) throws IOException {
+		Programs response = programService.getProgramInformationUG("CybersecurityConcentration");
+		model.put("programs", response);
+		return "programInformation";
+	}
 }
 

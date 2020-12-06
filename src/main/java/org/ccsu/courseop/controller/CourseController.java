@@ -9,8 +9,8 @@ import javax.websocket.server.PathParam;
 import org.ccsu.courseop.model.Courses;
 import org.ccsu.courseop.service.CoursesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -27,8 +27,13 @@ public class CourseController {
 	}
 
 	@RequestMapping("/courseTimings")
-	public String getCoursesTimings(Map<String, Object> model) {
-		//TODO service to get course timings
+	public String getSchedule(Map<String, Object> model, @PathParam("semester") String semester) throws IOException {
+		List<Courses> response = coursesService.getSchedule(semester);
+		model.put("courses", response);
+		if(null == semester) {
+			semester = "Spring";
+		}
+		model.put("semester",semester);
 		return "courseTimings";
 	}
 	

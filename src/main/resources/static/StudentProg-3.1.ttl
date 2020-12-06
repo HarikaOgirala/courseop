@@ -750,6 +750,9 @@ AdvisoryBot:CS505 rdf:type owl:NamedIndividual ,
                   AdvisoryBot:timeOffered AdvisoryBot:Evening ,
                                           <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#7:20_8:35_pm> ;
                   AdvisoryBot:courseDescription "An in-depth study of designing and implementing complex systems using proven architectural patterns for structuring, creating, and manipulating object orientated systems. Students will learn how to apply and implement a broad array of proven design patterns, when they should be used, and how to implement them in practice." ;
+				  AdvisoryBot:courseCRN 40427 ;
+				  AdvisoryBot:daysOffered AdvisoryBot:Thursday ,
+                                          AdvisoryBot:Tuesday ;
                   AdvisoryBot:courseName "Design Patterns" ;
                   AdvisoryBot:courseNumber "CS 505" ;
                   AdvisoryBot:courseRequirement "Full admission in SE program, or CS 501." ;

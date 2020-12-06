@@ -1,9 +1,7 @@
 package org.ccsu.courseop.util;
 
 import java.io.FileInputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.OntModel;
@@ -11,12 +9,7 @@ import org.apache.jena.rdf.model.InfModel;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
-import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.reasoner.Reasoner;
-import org.apache.jena.reasoner.rulesys.RDFSRuleReasonerFactory;
-import org.apache.jena.vocabulary.RDF;
-import org.apache.jena.vocabulary.RDFS;
-import org.apache.jena.vocabulary.ReasonerVocabulary;
 import org.springframework.stereotype.Component;
 
 import openllet.jena.PelletReasonerFactory;

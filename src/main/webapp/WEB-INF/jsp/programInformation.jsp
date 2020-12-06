@@ -55,6 +55,18 @@
 					</c:forEach></td>
 			</tr>
 		</div>
+		<div class="container-fluid" style="border: 2px solid #cecece;">
+			<tr>
+			<c:set var = "electives" scope = "session" value = "${programs.electives}"/>
+			<c:if test = "${not empty electives}" >
+				<h4>List of Electives</h4>
+				<td><c:forEach items="${programs.electives}"
+						var="elective">
+						<li><a href="/courseop/courseDetails?courseNumber=${elective}">${elective}</a></li>
+					</c:forEach></td>
+				</c:if>
+			</tr>
+		</div>
 	</div>
 	<script type="text/javascript"
 		src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>

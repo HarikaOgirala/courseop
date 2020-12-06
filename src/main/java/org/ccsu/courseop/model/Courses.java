@@ -15,6 +15,7 @@ public class Courses {
 	private HashSet<String> timings;
 	private HashSet<String> days;
 	private HashSet<String> semesters;
+	private HashSet<String> partOfDay;
 	private String courseCRN;
 	private Programs requiredCourse;
 	private String courseDesc;
@@ -86,5 +87,11 @@ public class Courses {
 	}
 	public void setTaughtBy(Faculty taughtBy) {
 		this.taughtBy = taughtBy;
+	}
+	public HashSet<String> getPartOfDay() {
+		return partOfDay;
+	}
+	public void setPartOfDay(HashSet<String> partOfDay) {
+		this.partOfDay = partOfDay;
 	}
 }
