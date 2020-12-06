@@ -20,25 +20,36 @@
 			</div>
 		</div>
 	</nav>
-<div class="container">
-<a href="/courseop/" data-toggle="tab">&lt;&lt; Back</a><br><br>
-	<table class="table table-bordered">
-	  <thead class="thead-light">
-	    <tr>
-	      <th scope="col">CourseNumber</th>
-	      <th scope="col">CourseName</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	  <c:forEach items="${courses}" var="course">
-	    <tr>
-	      <td>${course.courseNumber}</td>
-	      <td>${course.courseName}</td>
-	    </tr>
-	   </c:forEach>
-	  </tbody>
-	</table>
-</div>
+	<div class="container">
+		<a href="/courseop/" data-toggle="tab">&lt;&lt; Back</a><br> <br>
+		<table class="table table-bordered">
+			<thead class="thead-light">
+				<tr>
+					<th scope="col">Course Number</th>
+					<th scope="col">Course Name</th>
+					<th scope="col">Course Pre-requisites</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${courses}" var="course">
+					<tr>
+						<td><a href="/courseop/courseDetails?courseNumber=${course.courseNumber}">${course.courseNumber}</a></td>
+						<td>${course.courseName}</td>
+						<td><c:forEach items="${course.prerequisite}"
+								var="prerequisite">
+								<c:if test="${prerequisite == 'null' || prerequisite == 'None' }">
+									<li>None</li>
+								</c:if>
+								<c:if test="${prerequisite != 'null'}">
+									<li><a href="/courseop/courseDetails?courseNumber=${prerequisite}" >${prerequisite}</a></li>
+								</c:if>
+
+							</c:forEach></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
 	<script type="text/javascript"
 		src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 

@@ -1,0 +1,1223 @@
+@prefix : <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix AdvisoryBot: <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#> .
+@base <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl> .
+
+<http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#daysOffered
+AdvisoryBot:daysOffered rdf:type owl:ObjectProperty ;
+                        rdfs:domain AdvisoryBot:Course ;
+                        rdfs:range AdvisoryBot:Day ;
+                        rdfs:comment "Day/dates of the week the course is currently offered." .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#hasElective
+AdvisoryBot:hasElective rdf:type owl:ObjectProperty ;
+                        owl:inverseOf AdvisoryBot:isElectiveFor ;
+                        rdfs:domain AdvisoryBot:AcademicProgram ;
+                        rdfs:range AdvisoryBot:Course .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#hasPrerequisite
+AdvisoryBot:hasPrerequisite rdf:type owl:ObjectProperty ;
+                            owl:inverseOf AdvisoryBot:isPrerequisiteFor ;
+                            rdf:type owl:TransitiveProperty .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#hasRecommendedPrerequisite
+AdvisoryBot:hasRecommendedPrerequisite rdf:type owl:ObjectProperty ;
+                                       rdfs:subPropertyOf AdvisoryBot:hasPrerequisite ;
+                                       owl:inverseOf AdvisoryBot:isRecommendedPrerequisiteFor ;
+                                       rdf:type owl:TransitiveProperty ;
+                                       rdfs:comment "Recommended course or condition for a course to be taken." .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#hasRequiredCore
+AdvisoryBot:hasRequiredCore rdf:type owl:ObjectProperty ;
+                            owl:inverseOf AdvisoryBot:isRequiredCoreFor ;
+                            rdfs:domain AdvisoryBot:AcademicProgram ;
+                            rdfs:range AdvisoryBot:Course ;
+                            rdfs:comment "A program's required core classes." .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#hasRequiredCourse
+AdvisoryBot:hasRequiredCourse rdf:type owl:ObjectProperty ;
+                              owl:inverseOf AdvisoryBot:isRequiredCourseFor ,
+                                            AdvisoryBot:isRequiredFor .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#hasRequiredPrerequisite
+AdvisoryBot:hasRequiredPrerequisite rdf:type owl:ObjectProperty ;
+                                    rdfs:subPropertyOf AdvisoryBot:hasPrerequisite ;
+                                    owl:inverseOf AdvisoryBot:isRequiredPrerequisiteFor ;
+                                    rdf:type owl:TransitiveProperty .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#isElectiveFor
+AdvisoryBot:isElectiveFor rdf:type owl:ObjectProperty ;
+                          rdfs:domain AdvisoryBot:Course ;
+                          rdfs:range AdvisoryBot:AcademicProgram ;
+                          rdfs:comment "Elective course for a program." .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#isOfferedBy
+AdvisoryBot:isOfferedBy rdf:type owl:ObjectProperty ;
+                        owl:inverseOf AdvisoryBot:offers ;
+                        rdfs:domain AdvisoryBot:Course ;
+                        rdfs:range AdvisoryBot:Department .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#isPrerequisiteFor
+AdvisoryBot:isPrerequisiteFor rdf:type owl:ObjectProperty ,
+                                       owl:TransitiveProperty .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#isRecommendedPrerequisiteFor
+AdvisoryBot:isRecommendedPrerequisiteFor rdf:type owl:ObjectProperty ;
+                                         rdfs:subPropertyOf AdvisoryBot:isPrerequisiteFor ;
+                                         rdf:type owl:TransitiveProperty .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#isRequiredCoreFor
+AdvisoryBot:isRequiredCoreFor rdf:type owl:ObjectProperty .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#isRequiredCourseFor
+AdvisoryBot:isRequiredCourseFor rdf:type owl:ObjectProperty .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#isRequiredFor
+AdvisoryBot:isRequiredFor rdf:type owl:ObjectProperty ;
+                          rdfs:domain AdvisoryBot:Course ;
+                          rdfs:range AdvisoryBot:AcademicProgram ;
+                          rdfs:comment "Core course required for a program." .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#isRequiredPrerequisiteFor
+AdvisoryBot:isRequiredPrerequisiteFor rdf:type owl:ObjectProperty ;
+                                      rdfs:subPropertyOf AdvisoryBot:isPrerequisiteFor ;
+                                      rdf:type owl:TransitiveProperty .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#offers
+AdvisoryBot:offers rdf:type owl:ObjectProperty ;
+                   rdfs:domain AdvisoryBot:Department ;
+                   rdfs:range AdvisoryBot:Course .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#semesterOffered
+AdvisoryBot:semesterOffered rdf:type owl:ObjectProperty ;
+                            rdfs:domain AdvisoryBot:Course ;
+                            rdfs:range AdvisoryBot:Semester .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#timeOffered
+AdvisoryBot:timeOffered rdf:type owl:ObjectProperty ;
+                        rdfs:domain AdvisoryBot:Course ;
+                        rdfs:range AdvisoryBot:Time .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#courseCRN
+AdvisoryBot:courseCRN rdf:type owl:DatatypeProperty .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#courseDescription
+AdvisoryBot:courseDescription rdf:type owl:DatatypeProperty .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#courseName
+AdvisoryBot:courseName rdf:type owl:DatatypeProperty .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#courseNumber
+AdvisoryBot:courseNumber rdf:type owl:DatatypeProperty .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#courseRequirement
+AdvisoryBot:courseRequirement rdf:type owl:DatatypeProperty ;
+                              rdfs:comment "Defines who is eligible to take the course." .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#creditsPerSemester
+AdvisoryBot:creditsPerSemester rdf:type owl:DatatypeProperty .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#numberCredits
+AdvisoryBot:numberCredits rdf:type owl:DatatypeProperty .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#programAdmissionRequirements
+AdvisoryBot:programAdmissionRequirements rdf:type owl:DatatypeProperty .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#programDescription
+AdvisoryBot:programDescription rdf:type owl:DatatypeProperty .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#programName
+AdvisoryBot:programName rdf:type owl:DatatypeProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#AcademicProgram
+AdvisoryBot:AcademicProgram rdf:type owl:Class .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Condition
+AdvisoryBot:Condition rdf:type owl:Class .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Course
+AdvisoryBot:Course rdf:type owl:Class .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Day
+AdvisoryBot:Day rdf:type owl:Class .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Department
+AdvisoryBot:Department rdf:type owl:Class .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Graduate
+AdvisoryBot:Graduate rdf:type owl:Class ;
+                     owl:equivalentClass [ owl:intersectionOf ( AdvisoryBot:Course
+                                                                [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty AdvisoryBot:isElectiveFor ;
+                                                                  owl:someValuesFrom AdvisoryBot:GraduateProgram
+                                                                ]
+                                                                [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty AdvisoryBot:isRequiredFor ;
+                                                                  owl:someValuesFrom AdvisoryBot:GraduateProgram
+                                                                ]
+                                                              ) ;
+                                           rdf:type owl:Class
+                                         ] .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#GraduateProgram
+AdvisoryBot:GraduateProgram rdf:type owl:Class ;
+                            rdfs:subClassOf AdvisoryBot:AcademicProgram ;
+                            owl:disjointWith AdvisoryBot:UndergraduateProgram .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Person
+AdvisoryBot:Person rdf:type owl:Class .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Semester
+AdvisoryBot:Semester rdf:type owl:Class .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Student
+AdvisoryBot:Student rdf:type owl:Class ;
+                    rdfs:subClassOf AdvisoryBot:Person .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Time
+AdvisoryBot:Time rdf:type owl:Class .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Undergraduate
+AdvisoryBot:Undergraduate rdf:type owl:Class ;
+                          owl:equivalentClass [ owl:intersectionOf ( AdvisoryBot:Course
+                                                                     [ rdf:type owl:Class ;
+                                                                       owl:complementOf AdvisoryBot:Graduate
+                                                                     ]
+                                                                   ) ;
+                                                rdf:type owl:Class
+                                              ] ;
+                          rdfs:subClassOf AdvisoryBot:Course .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#UndergraduateProgram
+AdvisoryBot:UndergraduateProgram rdf:type owl:Class ;
+                                 rdfs:subClassOf AdvisoryBot:AcademicProgram .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#AD_CIT
+AdvisoryBot:AD_CIT rdf:type owl:NamedIndividual ,
+                            AdvisoryBot:Condition .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#AD_SE
+AdvisoryBot:AD_SE rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Condition .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Afternoon
+AdvisoryBot:Afternoon rdf:type owl:NamedIndividual ,
+                               AdvisoryBot:Time .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CEGT
+AdvisoryBot:CEGT rdf:type owl:NamedIndividual ,
+                          AdvisoryBot:Department .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CET501
+AdvisoryBot:CET501 rdf:type owl:NamedIndividual ,
+                            AdvisoryBot:Graduate ;
+                   AdvisoryBot:isOfferedBy AdvisoryBot:CEGT ;
+                   AdvisoryBot:isRequiredFor AdvisoryBot:CIT_CS ;
+                   AdvisoryBot:offers AdvisoryBot:Online ;
+                   AdvisoryBot:semesterOffered AdvisoryBot:Fall ;
+                   AdvisoryBot:timeOffered AdvisoryBot:Online ;
+                   AdvisoryBot:courseName "Applied Networking Technology I" .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CIT595
+AdvisoryBot:CIT595 rdf:type owl:NamedIndividual ,
+                            AdvisoryBot:Graduate ;
+                   AdvisoryBot:hasRequiredPrerequisite AdvisoryBot:CET501 ,
+                                                       AdvisoryBot:CS501 ,
+                                                       AdvisoryBot:CS502 ,
+                                                       AdvisoryBot:Min_18_Credits ,
+                                                       AdvisoryBot:Min_3.0_GPA ;
+                   AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                   AdvisoryBot:isRequiredFor AdvisoryBot:CIT_CS ;
+                   AdvisoryBot:semesterOffered AdvisoryBot:Fall ,
+                                               AdvisoryBot:Spring ;
+                   AdvisoryBot:courseName "Capsstone in CIT" .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CIT_CS
+AdvisoryBot:CIT_CS rdf:type owl:NamedIndividual ,
+                            AdvisoryBot:GraduateProgram ;
+                   AdvisoryBot:hasRequiredCore AdvisoryBot:CET501 ,
+                                               AdvisoryBot:CS500 ,
+                                               AdvisoryBot:CS501 ,
+                                               AdvisoryBot:CS502 ;
+                   AdvisoryBot:hasRequiredCourse AdvisoryBot:CIT595 ;
+                   AdvisoryBot:numberCredits 33 ;
+                   AdvisoryBot:programAdmissionRequirements "GPA of 2.7/4.0 and GPA of 3.0 in post-baccalaureate couse work; no formal CS background required." .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CIT_SE
+AdvisoryBot:CIT_SE rdf:type owl:NamedIndividual ,
+                            AdvisoryBot:GraduateProgram ;
+                   AdvisoryBot:hasPrerequisite AdvisoryBot:CS500 ,
+                                               AdvisoryBot:CS502 ;
+                   AdvisoryBot:hasRequiredCore AdvisoryBot:CET501 ,
+                                               AdvisoryBot:CS501 ,
+                                               AdvisoryBot:CS505 ,
+                                               AdvisoryBot:CS510 ;
+                   AdvisoryBot:numberCredits 33 ;
+                   AdvisoryBot:programAdmissionRequirements "GPA of 3.0 in baccalaureate couse work; formal CS background required." .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS
+AdvisoryBot:CS rdf:type owl:NamedIndividual ,
+                        AdvisoryBot:Department .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS151
+AdvisoryBot:CS151 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Undergraduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Monday ,
+                                          AdvisoryBot:Wednesday ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Spring ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Afternoon ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#10:50_12:05_pm> ;
+                  AdvisoryBot:courseCRN 40387 ;
+                  AdvisoryBot:courseDescription "Introduction to Computer Science" ;
+                  AdvisoryBot:courseName "Computer Science 1" ;
+                  AdvisoryBot:courseNumber "CS 151" ;
+                  AdvisoryBot:numberCredits 3 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS152
+AdvisoryBot:CS152 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Undergraduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Thursday ,
+                                          AdvisoryBot:Tuesday ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Spring ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Evening ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#3:05_4:20_pm> ;
+                  AdvisoryBot:courseCRN 40390 ;
+                  AdvisoryBot:courseDescription "Advanced core topics in Computer Science" ;
+                  AdvisoryBot:courseName "Computer Science II" ;
+                  AdvisoryBot:courseNumber "CS 152" ;
+                  AdvisoryBot:numberCredits 3 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS253
+AdvisoryBot:CS253 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Undergraduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Thursday ,
+                                          AdvisoryBot:Tuesday ;
+                  AdvisoryBot:hasPrerequisite AdvisoryBot:CS151 ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Fall ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Afternoon ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#12:15_1:30_pm> ;
+                  AdvisoryBot:courseCRN 10951 ;
+                  AdvisoryBot:courseDescription "Introduction to Data Structure" ;
+                  AdvisoryBot:courseName "Data and File Structure" ;
+                  AdvisoryBot:courseNumber "CS 253" .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS254
+AdvisoryBot:CS254 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Undergraduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Monday ,
+                                          AdvisoryBot:Wednesday ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:isRequiredCoreFor AdvisoryBot:ComputerScienceMinor ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Fall ,
+                                              AdvisoryBot:Spring ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Afternoon ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#12:15_1:30_pm> ;
+                  AdvisoryBot:courseCRN 10954 ;
+                  AdvisoryBot:courseDescription "Introduction to assembly languaage programs and structures" ;
+                  AdvisoryBot:courseName "Assembly Language" ;
+                  AdvisoryBot:courseNumber "CS 254" .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS291
+AdvisoryBot:CS291 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Undergraduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Monday ,
+                                          AdvisoryBot:Wednesday ;
+                  AdvisoryBot:hasPrerequisite AdvisoryBot:CS151 ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Spring ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Evening ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#3:05_4:20_pm> ;
+                  AdvisoryBot:courseCRN 40401 ;
+                  AdvisoryBot:courseDescription "Intriduction to Forensics in cyber security" ;
+                  AdvisoryBot:courseName "Intro to Computer Forensics" ;
+                  AdvisoryBot:courseNumber "CS 291" ;
+                  AdvisoryBot:numberCredits 3 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS354
+AdvisoryBot:CS354 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Undergraduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Monday ,
+                                          AdvisoryBot:Wednesday ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Spring ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Morning ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#9:25_10:40_am> ;
+                  AdvisoryBot:courseCRN 40402 ;
+                  AdvisoryBot:courseDescription "Introduction to digital system design and its uses" ;
+                  AdvisoryBot:courseName "Digital Systems Design" ;
+                  AdvisoryBot:courseNumber "CS 354" ;
+                  AdvisoryBot:numberCredits 3 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS355
+AdvisoryBot:CS355 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Undergraduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Thursday ;
+                  AdvisoryBot:hasPrerequisite AdvisoryBot:CS254 ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Spring ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Morning ,
+                                          AdvisoryBot:Tuesday ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#9:25_10:40_am> ;
+                  AdvisoryBot:courseCRN 40405 ;
+                  AdvisoryBot:courseDescription "Introduction to programing Language" ;
+                  AdvisoryBot:courseName "Systems Programming" ;
+                  AdvisoryBot:courseNumber "CS 355" ;
+                  AdvisoryBot:numberCredits 3 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS385
+AdvisoryBot:CS385 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Undergraduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Thursday ,
+                                          AdvisoryBot:Tuesday ;
+                  AdvisoryBot:hasPrerequisite AdvisoryBot:CS254 ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Fall ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Evening ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#3:05_4:20_pm> ;
+                  AdvisoryBot:courseCRN 10961 ;
+                  AdvisoryBot:courseDescription "Detailed study on Architecture structure and design" ;
+                  AdvisoryBot:courseName "Computer Architecture" ;
+                  AdvisoryBot:courseNumber "CS 385" ;
+                  AdvisoryBot:numberCredits 3 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS407
+AdvisoryBot:CS407 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Undergraduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Monday ;
+                  AdvisoryBot:isElectiveFor AdvisoryBot:ComputerScienceHonors_BS ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Fall ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Evening ,
+                                          AdvisoryBot:Hybrid ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#5:55_7:10_pm> ;
+                  AdvisoryBot:courseCRN 10964 ;
+                  AdvisoryBot:courseDescription "Advanced study on algorithms" ;
+                  AdvisoryBot:courseName "Advanced Algorithms" ;
+                  AdvisoryBot:courseNumber "CS 407" ;
+                  AdvisoryBot:numberCredits 3 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS410
+AdvisoryBot:CS410 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Undergraduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Thursday ,
+                                          AdvisoryBot:Tuesday ;
+                  AdvisoryBot:hasPrerequisite AdvisoryBot:CS253 ;
+                  AdvisoryBot:isElectiveFor AdvisoryBot:ComputerScienceHonors_BS ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Afternoon ,
+                                          AdvisoryBot:Hybrid ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#1:40_2:55_pm> ;
+                  AdvisoryBot:courseCRN 10969 ;
+                  AdvisoryBot:courseDescription "Itroduction to Software Engineering" ;
+                  AdvisoryBot:courseName "Software Engineering" ;
+                  AdvisoryBot:courseNumber "CS 410" ;
+                  AdvisoryBot:numberCredits 3 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS416
+AdvisoryBot:CS416 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Undergraduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Morning ,
+                                          AdvisoryBot:Wednesday ;
+                  AdvisoryBot:hasPrerequisite AdvisoryBot:CS254 ;
+                  AdvisoryBot:isElectiveFor AdvisoryBot:ComputerScienceHonors_BS ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Fall ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Evening ,
+                                          AdvisoryBot:Online ;
+                  AdvisoryBot:courseCRN 10971 ;
+                  AdvisoryBot:courseDescription "Introduction to web programing" ;
+                  AdvisoryBot:courseName "Web Programming" ;
+                  AdvisoryBot:courseNumber "CS 416" ;
+                  AdvisoryBot:numberCredits 3 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS455
+AdvisoryBot:CS455 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Undergraduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Monday ;
+                  AdvisoryBot:isElectiveFor AdvisoryBot:ComputerScienceHonors_BS ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:offers AdvisoryBot:Hybrid ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Spring ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Afternoon ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#10:50_12:05_pm> ;
+                  AdvisoryBot:courseCRN 43173 ;
+                  AdvisoryBot:courseDescription "Introduction to Secure Software Solutions" ;
+                  AdvisoryBot:courseName "Secure Software Development" ;
+                  AdvisoryBot:courseNumber "CS 455" ;
+                  AdvisoryBot:numberCredits 3 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS460
+AdvisoryBot:CS460 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Undergraduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Thursday ,
+                                          AdvisoryBot:Tuesday ;
+                  AdvisoryBot:hasPrerequisite AdvisoryBot:CS253 ;
+                  AdvisoryBot:isElectiveFor AdvisoryBot:ComputerScienceHonors_BS ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Fall ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Evening ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#4:30_5:45_pm> ;
+                  AdvisoryBot:courseCRN 10974 ;
+                  AdvisoryBot:courseDescription "introduction to relational database and its software" ;
+                  AdvisoryBot:courseName "DataBase Concepts" ;
+                  AdvisoryBot:courseNumber "CS 460" ;
+                  AdvisoryBot:numberCredits 3 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS463
+AdvisoryBot:CS463 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Undergraduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Wednesday ;
+                  AdvisoryBot:hasPrerequisite AdvisoryBot:CS253 ;
+                  AdvisoryBot:isElectiveFor AdvisoryBot:ComputerScienceHonors_BS ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Spring ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Afternoon ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#12:15_1:30_pm> ;
+                  AdvisoryBot:courseCRN 40431 ;
+                  AdvisoryBot:courseDescription "Introduction to Algorithms" ;
+                  AdvisoryBot:courseName "Algorithms" ;
+                  AdvisoryBot:courseNumber "CS 463" ;
+                  AdvisoryBot:numberCredits 3 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS464
+AdvisoryBot:CS464 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Undergraduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Monday ,
+                                          AdvisoryBot:Wednesday ;
+                  AdvisoryBot:isElectiveFor AdvisoryBot:ComputerScienceHonors_BS ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Spring ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Morning ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#10:50_12:05_pm> ;
+                  AdvisoryBot:courseCRN 10977 ;
+                  AdvisoryBot:courseDescription "Intriduction to Programming Language" ;
+                  AdvisoryBot:courseName "Programming Language" ;
+                  AdvisoryBot:courseNumber "CS 464" ;
+                  AdvisoryBot:numberCredits 3 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS467
+AdvisoryBot:CS467 rdf:type owl:NamedIndividual ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Monday ;
+                  AdvisoryBot:hasPrerequisite AdvisoryBot:CS291 ;
+                  AdvisoryBot:isElectiveFor AdvisoryBot:CybersecurityConcentration ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Spring ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Afternoon ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#12:15_1:30_pm> ;
+                  AdvisoryBot:courseCRN 40674 ;
+                  AdvisoryBot:courseDescription "Introduction to Security System Management" ;
+                  AdvisoryBot:courseName "Security System Management" ;
+                  AdvisoryBot:numberCredits 3 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS481
+AdvisoryBot:CS481 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Undergraduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Thursday ;
+                  AdvisoryBot:isElectiveFor AdvisoryBot:ComputerScienceHonors_BS ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Spring ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Evening ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#5:55_7:10_pm> ;
+                  AdvisoryBot:courseCRN 40432 ;
+                  AdvisoryBot:courseDescription "Introduction to Operating System Design" ;
+                  AdvisoryBot:courseName "Operating System Design" ;
+                  AdvisoryBot:courseNumber "CS 481" ;
+                  AdvisoryBot:numberCredits 3 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS492
+AdvisoryBot:CS492 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Undergraduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Thursday ,
+                                          AdvisoryBot:Tuesday ;
+                  AdvisoryBot:isElectiveFor AdvisoryBot:ComputerScienceHonors_BS ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Spring ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Afternoon ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#12:15_1:30_pm> ;
+                  AdvisoryBot:courseCRN 40433 ;
+                  AdvisoryBot:courseDescription "Introduction to Computer Security" ;
+                  AdvisoryBot:courseName "Computer Security" ;
+                  AdvisoryBot:courseNumber "CS 492" ;
+                  AdvisoryBot:numberCredits 3 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS493
+AdvisoryBot:CS493 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Undergraduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Monday ,
+                                          AdvisoryBot:Wednesday ;
+                  AdvisoryBot:isElectiveFor AdvisoryBot:ComputerScienceHonors_BS ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Fall ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Morning ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#10:50_12:05_pm> ;
+                  AdvisoryBot:courseCRN 10979 ;
+                  AdvisoryBot:courseDescription "Introduction to Secure Software System" ;
+                  AdvisoryBot:courseName "Secure Software Systems" ;
+                  AdvisoryBot:courseNumber "CS 493" ;
+                  AdvisoryBot:numberCredits 3 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS494
+AdvisoryBot:CS494 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Undergraduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Monday ,
+                                          AdvisoryBot:Wednesday ;
+                  AdvisoryBot:hasPrerequisite AdvisoryBot:CS354 ;
+                  AdvisoryBot:isElectiveFor AdvisoryBot:ComputerScienceHonors_BS ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Evening ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#3:05_4:20_pm> ;
+                  AdvisoryBot:courseCRN 10980 ;
+                  AdvisoryBot:courseDescription "Introduction to Crytographic System" ;
+                  AdvisoryBot:courseName "Cryptographic System" ;
+                  AdvisoryBot:courseNumber "CS 494" ;
+                  AdvisoryBot:numberCredits 3 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS498
+AdvisoryBot:CS498 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Undergraduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Monday ;
+                  AdvisoryBot:hasPrerequisite AdvisoryBot:CS253 ;
+                  AdvisoryBot:isElectiveFor AdvisoryBot:ComputerScienceHonors_BS ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Spring ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Afternoon ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#1:40_2:55_pm> ;
+                  AdvisoryBot:courseCRN 40435 ;
+                  AdvisoryBot:courseDescription "Study on Senior Project" ;
+                  AdvisoryBot:courseName "Senior Project" ;
+                  AdvisoryBot:courseNumber "CS 498" ;
+                  AdvisoryBot:numberCredits 3 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS500
+AdvisoryBot:CS500 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Graduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Monday ,
+                                          AdvisoryBot:Wednesday ;
+                  AdvisoryBot:hasRecommendedPrerequisite AdvisoryBot:AD_CIT ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:isPrerequisiteFor AdvisoryBot:CIT_SE ;
+                  AdvisoryBot:isRequiredCoreFor AdvisoryBot:CIT_CS ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Fall ,
+                                              AdvisoryBot:Spring ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Morning ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#9:25_10:40_am> ;
+                  AdvisoryBot:courseCRN 10981 ;
+                  AdvisoryBot:courseDescription "Concepts of computer science, including software analysis and design, inheritance, polymorphism, recursion, elementary sorting, and programming using arrays, sequential files, and linked lists." ;
+                  AdvisoryBot:courseName "Computer Science for CIT" ;
+                  AdvisoryBot:courseNumber "CS 500" ;
+                  AdvisoryBot:numberCredits 3 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS501
+AdvisoryBot:CS501 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Graduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Monday ,
+                                          AdvisoryBot:Wednesday ;
+                  AdvisoryBot:hasPrerequisite AdvisoryBot:CS500 ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:isRequiredCoreFor AdvisoryBot:CIT_CS ,
+                                                AdvisoryBot:CIT_SE ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Fall ,
+                                              AdvisoryBot:Summer ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Morning ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#9:25_10:40_am> ;
+                  AdvisoryBot:courseCRN 13380 ;
+                  AdvisoryBot:courseDescription "Software design for structuring and manipulating data. Topics include stacks, queues, hash tables, trees, graphs, advanced sorting, and analysis of algorithms." ;
+                  AdvisoryBot:courseName "Foundations of Computer Science" ;
+                  AdvisoryBot:courseNumber "CS 501" ;
+                  AdvisoryBot:numberCredits 3 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS502
+AdvisoryBot:CS502 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Graduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Thursday ,
+                                          AdvisoryBot:Tuesday ;
+                  AdvisoryBot:hasPrerequisite AdvisoryBot:CS500 ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:isPrerequisiteFor AdvisoryBot:CIT_SE ;
+                  AdvisoryBot:isRequiredCoreFor AdvisoryBot:CIT_CS ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Fall ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Morning ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#9:25_10:40_am> ;
+                  AdvisoryBot:courseCRN 13381 ;
+                  AdvisoryBot:courseDescription "Comprehensive coverage of the concepts of computer networking, and computer architecture and organization required to enable students to understand and efficiently utilize computing and communication resources. Development of distributed computer applications." ;
+                  AdvisoryBot:courseNumber "CS 502" ;
+                  AdvisoryBot:programName "Computing and Communications Technologies" .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS505
+AdvisoryBot:CS505 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Graduate ;
+                  AdvisoryBot:hasPrerequisite AdvisoryBot:CS501 ;
+                  AdvisoryBot:hasRequiredPrerequisite AdvisoryBot:AD_SE ;
+                  AdvisoryBot:isElectiveFor AdvisoryBot:CIT_CS ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:isRequiredCoreFor AdvisoryBot:CIT_SE ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Fall ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Evening ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#7:20_8:35_pm> ;
+                  AdvisoryBot:courseDescription "An in-depth study of designing and implementing complex systems using proven architectural patterns for structuring, creating, and manipulating object orientated systems. Students will learn how to apply and implement a broad array of proven design patterns, when they should be used, and how to implement them in practice." ;
+				  AdvisoryBot:courseCRN 40427 ;
+				  AdvisoryBot:daysOffered AdvisoryBot:Thursday ,
+                                          AdvisoryBot:Tuesday ;
+                  AdvisoryBot:courseName "Design Patterns" ;
+                  AdvisoryBot:courseNumber "CS 505" ;
+                  AdvisoryBot:courseRequirement "Full admission in SE program, or CS 501." ;
+                  AdvisoryBot:numberCredits 3 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS506
+AdvisoryBot:CS506 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Graduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Thursday ,
+                                          AdvisoryBot:Tuesday ;
+                  AdvisoryBot:hasPrerequisite AdvisoryBot:CS501 ;
+                  AdvisoryBot:hasRequiredPrerequisite AdvisoryBot:AD_SE ;
+                  AdvisoryBot:isElectiveFor AdvisoryBot:CIT_CS ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:isRequiredFor AdvisoryBot:CIT_SE ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Spring ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Morning ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#9:25_10:40_am> ;
+                  AdvisoryBot:courseCRN 40428 ;
+                  AdvisoryBot:courseDescription "Detailed study on purpose of identifying any errors, gaps or missing requirements and rectifying it." ;
+                  AdvisoryBot:courseName "Software Testing & Quality Assur" ;
+                  AdvisoryBot:courseNumber "CS 506" ;
+                  AdvisoryBot:numberCredits 3 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS508
+AdvisoryBot:CS508 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Graduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Monday ,
+                                          AdvisoryBot:Wednesday ;
+                  AdvisoryBot:hasPrerequisite AdvisoryBot:CS501 ;
+                  AdvisoryBot:hasRequiredPrerequisite AdvisoryBot:AD_SE ;
+                  AdvisoryBot:isElectiveFor AdvisoryBot:CIT_CS ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:isRequiredFor AdvisoryBot:CIT_SE ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Spring ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Afternoon ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#12:15_1:30_pm> ;
+                  AdvisoryBot:courseCRN 40416 ;
+                  AdvisoryBot:courseDescription "Study on shared software system among multiple computers and how they communicate and coordinate actions in order to appear as a single coherent systm." ;
+                  AdvisoryBot:courseName "Distributed Computing" ;
+                  AdvisoryBot:courseNumber "CS 508" ;
+                  AdvisoryBot:creditsPerSemester 3 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS510
+AdvisoryBot:CS510 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Graduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Monday ,
+                                          AdvisoryBot:Wednesday ;
+                  AdvisoryBot:hasPrerequisite AdvisoryBot:CS501 ;
+                  AdvisoryBot:hasRequiredPrerequisite AdvisoryBot:AD_SE ;
+                  AdvisoryBot:isElectiveFor AdvisoryBot:CIT_CS ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:isRequiredCoreFor AdvisoryBot:CIT_SE ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Fall ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Evening ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#4:30_5:45_pm> ;
+                  AdvisoryBot:courseCRN 43172 ;
+                  AdvisoryBot:courseName "Fund of Software Engineering" ;
+                  AdvisoryBot:courseNumber "CS 510" ;
+                  AdvisoryBot:numberCredits 3 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS525
+AdvisoryBot:CS525 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Graduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Thursday ,
+                                          AdvisoryBot:Tuesday ;
+                  AdvisoryBot:hasPrerequisite AdvisoryBot:CS501 ;
+                  AdvisoryBot:isElectiveFor AdvisoryBot:CIT_CS ,
+                                            AdvisoryBot:CIT_SE ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Fall ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Afternoon ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#10:50_12:05_pm> ;
+                  AdvisoryBot:courseCRN 10965 ;
+                  AdvisoryBot:courseDescription "Study on Algorithms which are usually designed to be able to process huge data." ;
+                  AdvisoryBot:courseName "Advanced Algorithms" ;
+                  AdvisoryBot:courseNumber "CS 525" .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS530
+AdvisoryBot:CS530 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Graduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Monday ,
+                                          AdvisoryBot:Wednesday ;
+                  AdvisoryBot:hasPrerequisite AdvisoryBot:CS510 ;
+                  AdvisoryBot:isElectiveFor AdvisoryBot:CIT_CS ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:isRequiredFor AdvisoryBot:CIT_SE ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Fall ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Evening ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#3:05_4:20_pm> ;
+                  AdvisoryBot:courseCRN 13387 ;
+                  AdvisoryBot:courseDescription "Advanced topics in software engineering" ;
+                  AdvisoryBot:courseName "Advanced Software Engineering" ;
+                  AdvisoryBot:courseNumber "CS 530" .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS550
+AdvisoryBot:CS550 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Graduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Monday ,
+                                          AdvisoryBot:Wednesday ;
+                  AdvisoryBot:hasPrerequisite AdvisoryBot:CS501 ;
+                  AdvisoryBot:isElectiveFor AdvisoryBot:CIT_CS ,
+                                            AdvisoryBot:CIT_SE ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Fall ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Evening ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#4:30_5:45_pm> ;
+                  AdvisoryBot:courseCRN 10967 ;
+                  AdvisoryBot:courseName "Usable Security & Privacy" ;
+                  AdvisoryBot:courseNumber "CS 550" .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS560
+AdvisoryBot:CS560 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Graduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Thursday ,
+                                          AdvisoryBot:Tuesday ;
+                  AdvisoryBot:hasPrerequisite AdvisoryBot:CS501 ;
+                  AdvisoryBot:isElectiveFor AdvisoryBot:CIT_CS ,
+                                            AdvisoryBot:CIT_SE ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Spring ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Morning ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#9:25_10:40_am> ;
+                  AdvisoryBot:courseDescription "Study on developing and creating of App for mobile devices." ;
+                  AdvisoryBot:courseName "Adv Tpc:Mobile App Development" ;
+                  AdvisoryBot:courseNumber "CS 560" ;
+                  AdvisoryBot:numberCredits 3 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS565
+AdvisoryBot:CS565 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Graduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Wednesday ;
+                  AdvisoryBot:hasPrerequisite AdvisoryBot:CS501 ;
+                  AdvisoryBot:isElectiveFor AdvisoryBot:CIT_CS ,
+                                            AdvisoryBot:CIT_SE ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Fall ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Afternoon ,
+                                          AdvisoryBot:Hybrid ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#12:15_1:30_pm> ;
+                  AdvisoryBot:courseCRN 54765 ;
+                  AdvisoryBot:courseDescription "Detailed Study on Bio Infomatics" ;
+                  AdvisoryBot:courseName "Introduction to Bioinfomatics" ;
+                  AdvisoryBot:courseNumber "CS 565" .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS570
+AdvisoryBot:CS570 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Graduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Tuesday ;
+                  AdvisoryBot:hasPrerequisite AdvisoryBot:CS501 ;
+                  AdvisoryBot:isElectiveFor AdvisoryBot:CIT_CS ,
+                                            AdvisoryBot:CIT_SE ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Spring ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Morning ,
+                                          AdvisoryBot:Online ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#9:25_10:40_am> ;
+                  AdvisoryBot:courseCRN 40430 ;
+                  AdvisoryBot:courseDescription "Theory and development of Computer Systems to perform tasks that normally require human Intelligence." ;
+                  AdvisoryBot:courseName "Tpcs in Artificial Intelligance" ;
+                  AdvisoryBot:courseNumber "CS 570" .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS575
+AdvisoryBot:CS575 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Graduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Monday ;
+                  AdvisoryBot:hasPrerequisite AdvisoryBot:CS501 ;
+                  AdvisoryBot:isElectiveFor AdvisoryBot:CIT_CS ,
+                                            AdvisoryBot:CIT_SE ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Spring ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Afternoon ,
+                                          AdvisoryBot:Hybrid ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#1:40_2:55_pm> ;
+                  AdvisoryBot:courseCRN 40421 ;
+                  AdvisoryBot:courseDescription "Different approach to regular Web application where data can be easily understood by the machine and provide more applicable resources to the users." ;
+                  AdvisoryBot:courseName "Linked Data Engineering" ;
+                  AdvisoryBot:courseNumber "CS 575" ;
+                  AdvisoryBot:numberCredits 3 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS580
+AdvisoryBot:CS580 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Graduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Thursday ,
+                                          AdvisoryBot:Tuesday ;
+                  AdvisoryBot:hasPrerequisite AdvisoryBot:CS501 ;
+                  AdvisoryBot:isElectiveFor AdvisoryBot:CIT_CS ,
+                                            AdvisoryBot:CIT_SE ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Fall ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Evening ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#4:30_5:45_pm> ;
+                  AdvisoryBot:courseCRN 10976 ;
+                  AdvisoryBot:courseDescription "Detailed study on database concept." ;
+                  AdvisoryBot:courseName "Tpcs in DataBase System" ;
+                  AdvisoryBot:courseNumber "CS 580" .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS590
+AdvisoryBot:CS590 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Graduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Thursday ;
+                  AdvisoryBot:hasPrerequisite AdvisoryBot:CS501 ;
+                  AdvisoryBot:isElectiveFor AdvisoryBot:CIT_CS ,
+                                            AdvisoryBot:CIT_SE ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Spring ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Hybrid ,
+                                          AdvisoryBot:Morning ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#9:25_10:40_am> ;
+                  AdvisoryBot:courseCRN 67543 ;
+                  AdvisoryBot:courseDescription "Study on High Performance Computing" ;
+                  AdvisoryBot:courseName "Topics in High Prerformance computing" ;
+                  AdvisoryBot:courseNumber "CS 590" .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CS595
+AdvisoryBot:CS595 rdf:type owl:NamedIndividual ,
+                           AdvisoryBot:Graduate ;
+                  AdvisoryBot:daysOffered AdvisoryBot:Monday ,
+                                          AdvisoryBot:Wednesday ;
+                  AdvisoryBot:isOfferedBy AdvisoryBot:CS ;
+                  AdvisoryBot:semesterOffered AdvisoryBot:Fall ,
+                                              AdvisoryBot:Spring ;
+                  AdvisoryBot:timeOffered AdvisoryBot:Hybrid ,
+                                          AdvisoryBot:Morning ,
+                                          <http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#9:25_10:40_am> ;
+                  AdvisoryBot:courseCRN 56422 ;
+                  AdvisoryBot:courseDescription "Research Program" ;
+                  AdvisoryBot:courseName "Graduate Research Seminar" ;
+                  AdvisoryBot:courseNumber "CS 595" ;
+                  AdvisoryBot:numberCredits 5 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#ComputerScienceAlternative
+AdvisoryBot:ComputerScienceAlternative rdf:type owl:NamedIndividual ,
+                                                AdvisoryBot:UndergraduateProgram ;
+                                       AdvisoryBot:hasElective AdvisoryBot:CS355 ,
+                                                               AdvisoryBot:CS385 ,
+                                                               AdvisoryBot:CS407 ,
+                                                               AdvisoryBot:CS410 ,
+                                                               AdvisoryBot:CS455 ,
+                                                               AdvisoryBot:CS460 ,
+                                                               AdvisoryBot:CS481 ,
+                                                               AdvisoryBot:CS498 ;
+                                       AdvisoryBot:hasRequiredCore AdvisoryBot:CS151 ,
+                                                                   AdvisoryBot:CS152 ,
+                                                                   AdvisoryBot:CS253 ;
+                                       AdvisoryBot:hasRequiredPrerequisite AdvisoryBot:MATH217 ;
+                                       AdvisoryBot:numberCredits 115 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#ComputerScienceHonors_BS
+AdvisoryBot:ComputerScienceHonors_BS rdf:type owl:NamedIndividual ,
+                                              AdvisoryBot:UndergraduateProgram ;
+                                     AdvisoryBot:hasPrerequisite AdvisoryBot:MATH152 ,
+                                                                 AdvisoryBot:MATH217 ;
+                                     AdvisoryBot:hasRequiredCore AdvisoryBot:CS151 ,
+                                                                 AdvisoryBot:CS152 ,
+                                                                 AdvisoryBot:CS253 ,
+                                                                 AdvisoryBot:CS254 ,
+                                                                 AdvisoryBot:CS354 ,
+                                                                 AdvisoryBot:CS355 ;
+                                     AdvisoryBot:numberCredits 110 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#ComputerScienceMinor
+AdvisoryBot:ComputerScienceMinor rdf:type owl:NamedIndividual ,
+                                          AdvisoryBot:UndergraduateProgram ;
+                                 AdvisoryBot:hasElective AdvisoryBot:CS253 ,
+                                                         AdvisoryBot:CS354 ,
+                                                         AdvisoryBot:CS355 ,
+                                                         AdvisoryBot:CS385 ,
+                                                         AdvisoryBot:CS407 ,
+                                                         AdvisoryBot:CS416 ,
+                                                         AdvisoryBot:CS455 ,
+                                                         AdvisoryBot:CS467 ,
+                                                         AdvisoryBot:CS481 ;
+                                 AdvisoryBot:hasRequiredCore AdvisoryBot:CS151 ,
+                                                             AdvisoryBot:CS152 ,
+                                                             AdvisoryBot:CS253 ;
+                                 AdvisoryBot:hasRequiredPrerequisite AdvisoryBot:MATH217 ;
+                                 AdvisoryBot:numberCredits 95 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Core_Completed
+AdvisoryBot:Core_Completed rdf:type owl:NamedIndividual ,
+                                    AdvisoryBot:Condition .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#CybersecurityConcentration
+AdvisoryBot:CybersecurityConcentration rdf:type owl:NamedIndividual ,
+                                                AdvisoryBot:UndergraduateProgram ;
+                                       AdvisoryBot:hasElective AdvisoryBot:CS291 ,
+                                                               AdvisoryBot:CS455 ,
+                                                               AdvisoryBot:CS467 ,
+                                                               AdvisoryBot:CS492 ;
+                                       AdvisoryBot:hasRequiredCore AdvisoryBot:CS151 ,
+                                                                   AdvisoryBot:CS152 ,
+                                                                   AdvisoryBot:CS253 ;
+                                       AdvisoryBot:hasRequiredPrerequisite AdvisoryBot:MATH217 ;
+                                       AdvisoryBot:numberCredits 120 .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Evening
+AdvisoryBot:Evening rdf:type owl:NamedIndividual ,
+                             AdvisoryBot:Time .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Fall
+AdvisoryBot:Fall rdf:type owl:NamedIndividual ,
+                          AdvisoryBot:Semester .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Friday
+AdvisoryBot:Friday rdf:type owl:NamedIndividual ,
+                            AdvisoryBot:Day .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#FullTime
+AdvisoryBot:FullTime rdf:type owl:NamedIndividual ,
+                              AdvisoryBot:Student ;
+                     AdvisoryBot:creditsPerSemester "Min 9, max 15" .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Hybrid
+AdvisoryBot:Hybrid rdf:type owl:NamedIndividual ,
+                            AdvisoryBot:Time .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#MATH152
+AdvisoryBot:MATH152 rdf:type owl:NamedIndividual ,
+                             AdvisoryBot:Undergraduate .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#MATH217
+AdvisoryBot:MATH217 rdf:type owl:NamedIndividual ,
+                             AdvisoryBot:Undergraduate .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Min_18_Credits
+AdvisoryBot:Min_18_Credits rdf:type owl:NamedIndividual ,
+                                    AdvisoryBot:Condition .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Min_3.0_GPA
+AdvisoryBot:Min_3.0_GPA rdf:type owl:NamedIndividual ,
+                                 AdvisoryBot:Condition .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Monday
+AdvisoryBot:Monday rdf:type owl:NamedIndividual ,
+                            AdvisoryBot:Day .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Morning
+AdvisoryBot:Morning rdf:type owl:NamedIndividual ,
+                             AdvisoryBot:Time .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Online
+AdvisoryBot:Online rdf:type owl:NamedIndividual ,
+                            AdvisoryBot:Time .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#PartTime
+AdvisoryBot:PartTime rdf:type owl:NamedIndividual ,
+                              AdvisoryBot:Student ;
+                     AdvisoryBot:creditsPerSemester "Max 6" .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Saturday
+AdvisoryBot:Saturday rdf:type owl:NamedIndividual ,
+                              AdvisoryBot:Day .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Spring
+AdvisoryBot:Spring rdf:type owl:NamedIndividual ,
+                            AdvisoryBot:Semester .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Summer
+AdvisoryBot:Summer rdf:type owl:NamedIndividual ,
+                            AdvisoryBot:Semester .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Sunday
+AdvisoryBot:Sunday rdf:type owl:NamedIndividual ,
+                            AdvisoryBot:Day .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Thursday
+AdvisoryBot:Thursday rdf:type owl:NamedIndividual ,
+                              AdvisoryBot:Day .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Tuesday
+AdvisoryBot:Tuesday rdf:type owl:NamedIndividual ,
+                             AdvisoryBot:Day .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#Wednesday
+AdvisoryBot:Wednesday rdf:type owl:NamedIndividual ,
+                               AdvisoryBot:Day .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#10:50_12:05_pm
+<http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#10:50_12:05_pm> rdf:type owl:NamedIndividual ,
+                                                                       AdvisoryBot:Time .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#12:15_1:30_pm
+<http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#12:15_1:30_pm> rdf:type owl:NamedIndividual ,
+                                                                      AdvisoryBot:Time .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#1:40_2:55_pm
+<http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#1:40_2:55_pm> rdf:type owl:NamedIndividual ,
+                                                                     AdvisoryBot:Time .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#3:05_4:20_pm
+<http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#3:05_4:20_pm> rdf:type owl:NamedIndividual ,
+                                                                     AdvisoryBot:Time .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#4:30_5:45_pm
+<http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#4:30_5:45_pm> rdf:type owl:NamedIndividual ,
+                                                                     AdvisoryBot:Time .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#5:55_7:10_pm
+<http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#5:55_7:10_pm> rdf:type owl:NamedIndividual ,
+                                                                     AdvisoryBot:Time .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#7:20_8:35_pm
+<http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#7:20_8:35_pm> rdf:type owl:NamedIndividual ,
+                                                                     AdvisoryBot:Time .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#8:45_10_pm
+<http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#8:45_10_pm> rdf:type owl:NamedIndividual ,
+                                                                   AdvisoryBot:Time .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#8_9:15_am
+<http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#8_9:15_am> rdf:type owl:NamedIndividual ,
+                                                                  AdvisoryBot:Time .
+
+
+###  http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#9:25_10:40_am
+<http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#9:25_10:40_am> rdf:type owl:NamedIndividual ,
+                                                                      AdvisoryBot:Time .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi

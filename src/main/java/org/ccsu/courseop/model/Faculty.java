@@ -5,11 +5,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class Faculty {
 	
+	private String name;
 	private String firstName;
 	private String lastName;
 	private String email;
 	private String website;
 	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public String getFirstName() {
 		return firstName;
 	}
