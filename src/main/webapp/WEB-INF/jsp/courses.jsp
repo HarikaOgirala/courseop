@@ -2,8 +2,17 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
-<head>
 
+<head>
+<style>
+#load{
+    width:100%;
+    height:100%;
+    position:fixed;
+    z-index:9999;
+    background:url("https://i.gifer.com/YCZH.gif") no-repeat center center rgba(0,0,0,0.25)
+}
+</style>
 <link rel="stylesheet" type="text/css"
 	href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
 
@@ -12,16 +21,9 @@
 
 </head>
 <body>
+<div id="load"></div>
 
-	<nav class="navbar navbar-inverse">
-		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">CourseOp</a>
-			</div>
-		</div>
-	</nav>
-
-	<div class="container">
+	<div class="container" id="coursesData">
 
 		<div class="tabbable tabs-left">
   <ul class="nav nav-tabs">
@@ -82,5 +84,20 @@
 		src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </body>
+
+<script type="text/javascript">
+document.onreadystatechange = function () {
+	  var state = document.readyState
+	  if (state == 'interactive') {
+	       document.getElementById('contents').style.visibility="hidden";
+	  } else if (state == 'complete') {
+	      setTimeout(function(){
+	         document.getElementById('interactive');
+	         document.getElementById('load').style.visibility="hidden";
+	         document.getElementById('"coursesData"').style.visibility="visible";
+	      },1000);
+	  }
+	}
+</script>
 
 </html>

@@ -10,6 +10,8 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.reasoner.Reasoner;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import openllet.jena.PelletReasonerFactory;
@@ -17,8 +19,7 @@ import openllet.jena.PelletReasonerFactory;
 @Component
 public class AdvisorSchemaFactory {
 
-	// private static final Logger logger =
-	// LogManager.getLogger(TTLFileReader.class);
+	private static final Logger logger = LogManager.getLogger(AdvisorSchemaFactory.class);
 	private static final String COURSE_TTL_FILE = "src/main/resources/static/StudentProg-3.1.ttl";
 	private static final String FACULTY_TTL_FILE = "src/main/resources/static/Faculty-me.ttl";
 
