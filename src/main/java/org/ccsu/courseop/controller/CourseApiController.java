@@ -1,6 +1,7 @@
 package org.ccsu.courseop.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.websocket.server.PathParam;
 
@@ -22,6 +23,12 @@ public class CourseApiController {
 	@GetMapping("/api/courseDetails")
 	public ResponseEntity<Courses> getCourseDetails(@PathParam(value = "courseNumber") String courseNumber) throws IOException {
 		Courses course = coursesService.getCourseDetails(courseNumber);
+		return new ResponseEntity<>(course, HttpStatus.OK);
+	}
+	
+	@GetMapping("/api/courseDetails/all")
+	public ResponseEntity<List<Courses>> getCourseDetails() throws IOException {
+		List<Courses> course = coursesService.getListOfCourses();
 		return new ResponseEntity<>(course, HttpStatus.OK);
 	}
 
