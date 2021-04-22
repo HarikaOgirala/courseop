@@ -1,7 +1,8 @@
 package org.ccsu.courseop.util;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+
+import javax.annotation.PostConstruct;
 
 import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.OntModel;
@@ -12,6 +13,8 @@ import org.apache.jena.rdf.model.Property;
 import org.apache.jena.reasoner.Reasoner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import openllet.jena.PelletReasonerFactory;
@@ -20,9 +23,8 @@ import openllet.jena.PelletReasonerFactory;
 public class AdvisorSchemaFactory {
 
 	private static final Logger logger = LogManager.getLogger(AdvisorSchemaFactory.class);
-	private static final String COURSE_TTL_FILE = "src/main/resources/static/StudentProg-3.1.ttl";
-	private static final String FACULTY_TTL_FILE = "src/main/resources/static/Faculty-me.ttl";
-
+		
+	
 	private InfModel courseInference;
 	private InfModel facultyInference;
 	private InfModel unionInference;
@@ -30,31 +32,28 @@ public class AdvisorSchemaFactory {
 	private OntModel courseSchema = ModelFactory.createOntologyModel();
 	private OntModel facultySchema = ModelFactory.createOntologyModel();
 	private Model unionSchema = ModelFactory.createOntologyModel();
-
+	
 	private Reasoner reasoner = PelletReasonerFactory.theInstance().create();
 
 	private String base = "http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#";
+	
+	@Value("classpath:static/StudentProg-3.1.ttl")
+	Resource courseResource;
+	
+	@Value("classpath:static/Faculty-me.ttl")
+	Resource facultyResource;
 
-	public Model readCourseSchema() throws IOException {
-
-		// reading the file from a local drive
-		courseSchema.read(new FileInputStream(COURSE_TTL_FILE), null, "TTL");
+	@PostConstruct
+    private void schemaGenerator() throws IOException  {
+		//course schema
+		courseSchema.read(courseResource.getInputStream(), null, "TTL");
 		courseInference = ModelFactory.createInfModel(reasoner, courseSchema);
-		return courseInference;
-	}
-
-	public Model readFacultySchema() throws IOException {
-
-		facultySchema.read(new FileInputStream(FACULTY_TTL_FILE), null, "TTL");
+		
+		//faculty schema
+		facultySchema.read(facultyResource.getInputStream(), null, "TTL");
 		facultyInference = ModelFactory.createInfModel(reasoner, facultySchema);
-		return facultyInference;
-	}
-
-	public Model readIntegratedSchema() throws IOException {
-
-		facultySchema.read(new FileInputStream(FACULTY_TTL_FILE), null, "TTL");
-		courseSchema.read(new FileInputStream(COURSE_TTL_FILE), null, "TTL");
-
+		
+		//union schema
 		Property teaches = facultySchema.createProperty(base + "teaches");
 
 		Individual profChad = facultySchema.getIndividual(base + "Chad_Williams");
@@ -165,7 +164,18 @@ public class AdvisorSchemaFactory {
 		
 		System.out.println("UNION INFERENCE===============================================");
 		unionInference.write(System.out, "TURTLE");
+		//Model schemas[] = {courseSchema, facultySchema, unionSchema};
+    }
+	
+	public Model readCourseSchema() {
+		return courseInference;
+	}
 
+	public Model readFacultySchema() {
+		return facultyInference;
+	}
+
+	public Model readIntegratedSchema() throws IOException {
 		return unionInference;
 	}
 
