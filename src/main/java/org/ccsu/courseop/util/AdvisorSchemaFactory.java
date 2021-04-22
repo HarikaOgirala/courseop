@@ -20,12 +20,13 @@ import openllet.jena.PelletReasonerFactory;
 public class AdvisorSchemaFactory {
 
 	private static final Logger logger = LogManager.getLogger(AdvisorSchemaFactory.class);
+
 	private static final String COURSE_TTL_FILE = "src/main/resources/static/StudentProg-3.1.ttl";
 	private static final String FACULTY_TTL_FILE = "src/main/resources/static/Faculty-me.ttl";
+	private static InfModel courseInference;
+	private static InfModel facultyInference;
+	private static InfModel unionInference;
 
-	private InfModel courseInference;
-	private InfModel facultyInference;
-	private InfModel unionInference;
 	
 	private OntModel courseSchema = ModelFactory.createOntologyModel();
 	private OntModel facultySchema = ModelFactory.createOntologyModel();
@@ -93,31 +94,37 @@ public class AdvisorSchemaFactory {
 		Individual course530 = courseSchema.getIndividual(base + "CS530");
 		Individual course410 = courseSchema.getIndividual(base + "CS410");
 		Individual course498 = courseSchema.getIndividual(base + "CS498");
+		Individual course455 = courseSchema.getIndividual(base + "CS455");
 
 		StanKukovsky.addProperty(teaches, course510);
 		StanKukovsky.addProperty(teaches, course530);
 		StanKukovsky.addProperty(teaches, course410);
 		StanKukovsky.addProperty(teaches, course498);
+		StanKukovsky.addProperty(teaches, course455);
 
 		Individual NeliZlatareva = facultySchema.getIndividual(base + "Neli_Zlatareva");
 		Individual course575 = courseSchema.getIndividual(base + "CS575");
 		Individual course570 = courseSchema.getIndividual(base + "CS570");
 		Individual course253 = courseSchema.getIndividual(base + "CS253");
 		Individual course407 = courseSchema.getIndividual(base + "CS407");
+		Individual course590 = courseSchema.getIndividual(base + "CS590");
 
 		NeliZlatareva.addProperty(teaches, course575);
 		NeliZlatareva.addProperty(teaches, course570);
 		NeliZlatareva.addProperty(teaches, course253);
 		NeliZlatareva.addProperty(teaches, course407);
+		NeliZlatareva.addProperty(teaches, course590);
 
 		Individual BradleyKjell = facultySchema.getIndividual(base + "Bradley_Kjell");
 		Individual course152 = courseSchema.getIndividual(base + "CS152");
 		Individual course254 = courseSchema.getIndividual(base + "CS254");
 		Individual course494 = courseSchema.getIndividual(base + "CS494");
+		Individual course595 = courseSchema.getIndividual(base + "CS595");
 
 		BradleyKjell.addProperty(teaches, course152);
 		BradleyKjell.addProperty(teaches, course254);
 		BradleyKjell.addProperty(teaches, course494);
+		BradleyKjell.addProperty(teaches, course595);
 
 		Individual IrenaPevac = facultySchema.getIndividual(base + "Irena_Pevac");
 		Individual course580 = courseSchema.getIndividual(base + "CS580");
@@ -145,9 +152,11 @@ public class AdvisorSchemaFactory {
 		Individual ZdravkoMarkov = facultySchema.getIndividual(base + "Zdravko_Markov");
 		Individual course354 = courseSchema.getIndividual(base + "CS354");
 		Individual course385 = courseSchema.getIndividual(base + "CS385");
+		Individual course565 = courseSchema.getIndividual(base + "CS565");
 
 		ZdravkoMarkov.addProperty(teaches, course354);
 		ZdravkoMarkov.addProperty(teaches, course385);
+		ZdravkoMarkov.addProperty(teaches, course565);
 
 		Individual MahiehZabihimayvan = facultySchema.getIndividual(base + "Mahdieh_Zabihimayvan");
 		Individual course355 = courseSchema.getIndividual(base + "CS355");
