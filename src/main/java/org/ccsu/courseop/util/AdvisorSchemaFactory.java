@@ -1,7 +1,8 @@
 package org.ccsu.courseop.util;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+
+import javax.annotation.PostConstruct;
 
 import org.apache.jena.ontology.Individual;
 import org.apache.jena.ontology.OntModel;
@@ -42,23 +43,17 @@ public class AdvisorSchemaFactory {
 
 	private String base = "http://www.cs.ccsu.edu/~neli/AdvisoryBot.owl#";
 
-	public Model readCourseSchema() throws IOException {
-
-		// reading the file from a local drive
+	@PostConstruct
+	public void schemaGenerator() throws IOException {
+		// course Schema
 		courseSchema.read(coursesResource.getInputStream(), null, "TTL");
 		courseInference = ModelFactory.createInfModel(reasoner, courseSchema);
-		return courseInference;
-	}
-
-	public Model readFacultySchema() throws IOException {
-
+		
+		//faculty Schema
 		facultySchema.read(facultyResource.getInputStream(), null, "TTL");
 		facultyInference = ModelFactory.createInfModel(reasoner, facultySchema);
-		return facultyInference;
-	}
-
-	public Model readIntegratedSchema() throws IOException {
-
+		
+		//union Schema
 		facultySchema.read(facultyResource.getInputStream(), null, "TTL");
 		courseSchema.read(coursesResource.getInputStream(), null, "TTL");
 
@@ -181,6 +176,18 @@ public class AdvisorSchemaFactory {
 		System.out.println("UNION INFERENCE===============================================");
 		unionInference.write(System.out, "TURTLE");
 
+	}
+	
+	
+	public Model readCourseSchema() throws IOException {
+		return courseInference;
+	}
+
+	public Model readFacultySchema() throws IOException {
+		return facultyInference;
+	}
+
+	public Model readIntegratedSchema() throws IOException {
 		return unionInference;
 	}
 
