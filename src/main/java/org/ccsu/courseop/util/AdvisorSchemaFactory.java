@@ -12,6 +12,8 @@ import org.apache.jena.rdf.model.Property;
 import org.apache.jena.reasoner.Reasoner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import openllet.jena.PelletReasonerFactory;
@@ -21,11 +23,15 @@ public class AdvisorSchemaFactory {
 
 	private static final Logger logger = LogManager.getLogger(AdvisorSchemaFactory.class);
 
-	private static final String COURSE_TTL_FILE = "src/main/resources/static/StudentProg-3.1.ttl";
-	private static final String FACULTY_TTL_FILE = "src/main/resources/static/Faculty-me.ttl";
 	private static InfModel courseInference;
 	private static InfModel facultyInference;
 	private static InfModel unionInference;
+	
+	@Value("classpath:static/StudentProg-3.1.ttl")
+	private Resource coursesResource;
+	
+	@Value("classpath:static/Faculty-me.ttl")
+	 private Resource facultyResource;
 
 	
 	private OntModel courseSchema = ModelFactory.createOntologyModel();
@@ -39,22 +45,22 @@ public class AdvisorSchemaFactory {
 	public Model readCourseSchema() throws IOException {
 
 		// reading the file from a local drive
-		courseSchema.read(new FileInputStream(COURSE_TTL_FILE), null, "TTL");
+		courseSchema.read(coursesResource.getInputStream(), null, "TTL");
 		courseInference = ModelFactory.createInfModel(reasoner, courseSchema);
 		return courseInference;
 	}
 
 	public Model readFacultySchema() throws IOException {
 
-		facultySchema.read(new FileInputStream(FACULTY_TTL_FILE), null, "TTL");
+		facultySchema.read(facultyResource.getInputStream(), null, "TTL");
 		facultyInference = ModelFactory.createInfModel(reasoner, facultySchema);
 		return facultyInference;
 	}
 
 	public Model readIntegratedSchema() throws IOException {
 
-		facultySchema.read(new FileInputStream(FACULTY_TTL_FILE), null, "TTL");
-		courseSchema.read(new FileInputStream(COURSE_TTL_FILE), null, "TTL");
+		facultySchema.read(facultyResource.getInputStream(), null, "TTL");
+		courseSchema.read(coursesResource.getInputStream(), null, "TTL");
 
 		Property teaches = facultySchema.createProperty(base + "teaches");
 
